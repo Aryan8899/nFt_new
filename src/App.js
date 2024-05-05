@@ -1,24 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  NavLink,
+  Routes,
+} from "react-router-dom";
+import Home from "./COMP/home";
+import Buy from "./COMP/buy";
+import About from "./COMP/About";
 
 function App() {
+  const [accounts, setAccounts] = useState([]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <nav className="navbar">
+        <NavLink className="nav-link" activeClassName="active" exact to="/">
+          Home
+        </NavLink>
+        <NavLink className="nav-link" activeClassName="active" to="/buy">
+          Buy
+        </NavLink>
+        <NavLink className="nav-link" activeClassName="active" to="/about">
+          About
+        </NavLink>
+      </nav>
+
+      <Routes className="navbar">
+        <Route
+          path="/"
+          element={<Home accounts={accounts} setAccounts={setAccounts} />}
+        />
+        <Route
+          path="/buy"
+          element={<Buy accounts={accounts} setAccounts={setAccounts} />}
+        />
+        <Route
+          path="/about"
+          element={<About accounts={accounts} setAccounts={setAccounts} />}
+        />
+      </Routes>
+    </Router>
   );
 }
 
